@@ -7,49 +7,38 @@ import statusMonitor from "express-status-monitor";
 import { globalSanitizer } from "./middleware/sanitization.js";
 import hpp from "hpp";
 import helmet from "helmet";
-
-// import cors from "cors";
+import cors from "cors";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
+
 dotenv.config({ path: ".env" });
 connectDB();
 
 const app = express();
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(express.static(path.join(__dirname, "public")));
 
-
 app.use(helmet());
 app.use(hpp());
-// app.use(
-//   cors({
-//     origin: [
-//       // "http://localhost:5173",
-//       // all-user
-//       "*",
-//     ],
 
-//     credentials: true,
-//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://your-frontend.vercel.app"
+  ],
+  credentials: true,
+  methods: ["GET","POST","PUT","DELETE","PATCH"],
+  allowedHeaders: ["Content-Type","Authorization"]
+}));
 
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//   }),
-// );
-
-app.use(morgan());
-
-app.use((req, res, next) => {
-  if (req.body) mongoSanitize.sanitize(req.body);
-  if (req.params) mongoSanitize.sanitize(req.params);
-  next();
-});
+app.use(morgan("dev"));
 
 app.use(express.json());
 app.use(globalSanitizer);
-
 app.use((req, res, next) => {
   if (req.body) mongoSanitize.sanitize(req.body);
   if (req.params) mongoSanitize.sanitize(req.params);
@@ -58,13 +47,12 @@ app.use((req, res, next) => {
 
 app.use(statusMonitor());
 
-
 import authRoutes from "./routes/AuthRoute.js";
 import logsRoutes from "./routes/LogsRoute.js";
 import taskRoutes from "./routes/TaskRoute.js";
 import dashboardRoutes from "./routes/DashboardRoute.js";
 
-app.get("/", (req, res) => res.send("Hello in vercel"));
+app.get("/", (req, res) => res.send("Task Management API is running!"));
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/logs", logsRoutes);
