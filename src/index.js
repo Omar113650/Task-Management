@@ -7,12 +7,18 @@ import statusMonitor from "express-status-monitor";
 import { globalSanitizer } from "./middleware/sanitization.js";
 import hpp from "hpp";
 import helmet from "helmet";
+
 // import cors from "cors";
 import morgan from "morgan";
+import path from "path";
+import { fileURLToPath } from "url";
 dotenv.config({ path: ".env" });
 connectDB();
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 app.use(helmet());
 app.use(hpp());
