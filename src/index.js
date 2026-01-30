@@ -1,12 +1,36 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/connectDB.js";
-
+import { notfound, errorHandler } from "./middleware/error.js";
+import mongoSanitize from "express-mongo-sanitize";
+import statusMonitor from "express-status-monitor";
+import { globalSanitizer } from "./middleware/sanitization.js";
 dotenv.config({ path: ".env" });
 connectDB();
 
 const app = express();
 app.use(express.json());
+app.use(globalSanitizer);
+
+app.use((req, res, next) => {
+  if (req.body) mongoSanitize.sanitize(req.body);
+  if (req.params) mongoSanitize.sanitize(req.params);
+  next();
+});
+
+app.use(statusMonitor());
+
+import authRoutes from "./routes/AuthRoute.js";
+import logsRoutes from "./routes/LogsRoute.js";
+
+
+app.get("/", (req, res) => res.send("Hello in vercel"));
+
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/logs", logsRoutes);
+
+app.use(notfound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
