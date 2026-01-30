@@ -20,6 +20,8 @@ app.use(
   cors({
     origin: [
       // "http://localhost:5173",
+      // all-user
+      "*",
     ],
 
     credentials: true,
@@ -55,7 +57,7 @@ import logsRoutes from "./routes/LogsRoute.js";
 import taskRoutes from "./routes/TaskRoute.js";
 import dashboardRoutes from "./routes/DashboardRoute.js";
 
-app.get("/", (req, res) => res.send("Hello in vercel"));
+app.get("src/", (req, res) => res.send("Hello in vercel"));
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/logs", logsRoutes);
