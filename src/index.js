@@ -39,8 +39,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(statusMonitor());
-
 app.use(express.json());
 app.use(globalSanitizer);
 
@@ -52,12 +50,13 @@ app.use((req, res, next) => {
 
 app.use(statusMonitor());
 
+
 import authRoutes from "./routes/AuthRoute.js";
 import logsRoutes from "./routes/LogsRoute.js";
 import taskRoutes from "./routes/TaskRoute.js";
 import dashboardRoutes from "./routes/DashboardRoute.js";
 
-app.get("/src/routes", (req, res) => res.send("Hello in vercel"));
+app.get("/", (req, res) => res.send("Hello in vercel"));
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/logs", logsRoutes);
