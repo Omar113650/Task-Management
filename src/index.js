@@ -7,7 +7,7 @@ import statusMonitor from "express-status-monitor";
 import { globalSanitizer } from "./middleware/sanitization.js";
 import hpp from "hpp";
 import helmet from "helmet";
-import cors from "cors";
+// import cors from "cors";
 import morgan from "morgan";
 dotenv.config({ path: ".env" });
 connectDB();
@@ -16,20 +16,20 @@ const app = express();
 
 app.use(helmet());
 app.use(hpp());
-app.use(
-  cors({
-    origin: [
-      // "http://localhost:5173",
-      // all-user
-      "*",
-    ],
+// app.use(
+//   cors({
+//     origin: [
+//       // "http://localhost:5173",
+//       // all-user
+//       "*",
+//     ],
 
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+//     credentials: true,
+//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 
-    allowedHeaders: ["Content-Type", "Authorization"],
-  }),
-);
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   }),
+// );
 
 app.use(morgan());
 
