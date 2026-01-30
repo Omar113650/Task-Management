@@ -22,12 +22,16 @@ app.use(statusMonitor());
 
 import authRoutes from "./routes/AuthRoute.js";
 import logsRoutes from "./routes/LogsRoute.js";
+import taskRoutes from "./routes/TaskRoute.js";
+import dashboardRoutes from "./routes/DashboardRoute.js";
 
 
 app.get("/", (req, res) => res.send("Hello in vercel"));
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/logs", logsRoutes);
+app.use("/api/v1/task", taskRoutes);
+app.use("/api/v1/dashboard", dashboardRoutes);
 
 app.use(notfound);
 app.use(errorHandler);

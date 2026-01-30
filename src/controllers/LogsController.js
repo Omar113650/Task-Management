@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 import asyncHandler from "express-async-handler";
 import { Log } from "../model/Logs.js";
 
