@@ -25,15 +25,18 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(helmet());
 app.use(hpp());
 
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://your-frontend.vercel.app"
-  ],
-  credentials: true,
-  methods: ["GET","POST","PUT","DELETE","PATCH"],
-  allowedHeaders: ["Content-Type","Authorization"]
-}));
+app.use(
+  cors({
+    origin: [
+      // example
+      "http://localhost:5173",
+      "https://your-frontend.vercel.app",
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 
 app.use(morgan("dev"));
 
@@ -52,7 +55,7 @@ import logsRoutes from "./routes/LogsRoute.js";
 import taskRoutes from "./routes/TaskRoute.js";
 import dashboardRoutes from "./routes/DashboardRoute.js";
 
-app.get("/", (req, res) => res.send("Task Management API is running!"));
+app.get("/", (req, res) => res.send("Hello in vercel "));
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/logs", logsRoutes);

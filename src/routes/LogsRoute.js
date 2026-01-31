@@ -6,7 +6,6 @@ import { ValidatedID } from "../middleware/validateId.js";
 
 const router = express.Router();
 router.get("/get-all-logs", VerifyTokenAdmin, apiLimiter, getAllLogs);
-VerifyToken;
 router.get(
   "/get-logs-user/:id",
   VerifyToken,

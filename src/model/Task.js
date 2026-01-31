@@ -1,5 +1,3 @@
-
-
 import mongoose from "mongoose";
 
 const TaskSchema = new mongoose.Schema(
@@ -38,7 +36,7 @@ const TaskSchema = new mongoose.Schema(
 
     feedback: {
       type: String,
-      default: null, // Feedback من الـ Admin
+      default: null, 
       maxlength: 1000,
     },
     assignedTo: {
